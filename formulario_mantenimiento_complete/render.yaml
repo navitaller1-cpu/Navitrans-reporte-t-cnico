@@ -1,11 +1,15 @@
 services:
   - type: web
-    name: flask-app
+    name: navitrans-reporte
     env: python
-    region: oregon   # puedes cambiarlo según donde quieras desplegar
-    plan: free       # o starter/standard si necesitas más recursos
+    region: oregon
+    plan: free
     buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn app:app --workers 4 --threads 2 --bind 0.0.0.0:10000"
+    startCommand: "gunicorn app:app --bind 0.0.0.0:$PORT"
     envVars:
       - key: PYTHON_VERSION
-        value: 3.12.5
+        value: 3.11.5
+      - key: SECRET_KEY
+        generateValue: true
+      - key: FLASK_ENV
+        value: production
