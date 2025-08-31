@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reporte Generado - Navitrans</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: #f8f9fa;
+      min-height: 100vh;
+      color: #2c3e50;
+      line-height: 1.6;
+      /* Prevent zoom on iOS */
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+
+    /* Mobile-first approach */
+    .main-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .result-card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      position: relative;
+      /* Ensure no layout issues on small screens */
+      width: 100%;
+    }
+
+    .result-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #e30613, #c40510, #e30613);
+      background-size: 200% 100%;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { background-position: 200% 0; }
+      50% { background-position: -200% 0; }
+    }
+
+    .success-header {
+      padding: 2rem 1.5rem 1.5rem;
+      text-align: center;
+      background: white;
+      position: relative;
+    }
+
+    .success-icon {
+      width: 64px;
+      height: 64px;
+      background: #e30613;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      /* Simpler animation for better mobile performance */
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .success-icon svg {
+      width: 32px;
+      height: 32px;
+      color: white;
+      stroke-width: 3;
+    }
+
+    .success-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #2c3e50;
+      margin-bottom: 0.5rem;
+    }
+
+    .success-subtitle {
+      font-size: 0.95rem;
+      color: #6c757d;
+      font-weight: 400;
+      margin-bottom: 0;
+    }
+
+    .download-section {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: #e30613;
+      color: white;
+      text-decoration: none;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+      border: none;
+      width: 100%;
+      max-width: 300px;
+      /* Prevent text selection issues on mobile */
+      -webkit-user-select: none;
+      user-select: none;
+      /* Prevent zoom on tap in iOS */
+      touch-action: manipulation;
+    }
+
+    .download-btn:hover,
+    .download-btn:focus {
+      background: #c40510;
+      color: white;
+      text-decoration: none;
+      transform: translateY(-1px);
+    }
+
+    .download-btn:active {
+      transform: translateY(0);
+      background: #a00408;
+    }
+
+    .download-icon {
+      width: 24px;
+      height: 24px;
+      stroke-width: 2.5;
+    }
+
+    .file-info {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: #f8f9fa;
+      border-radius: 12px;
+      border-left: 4px solid #e30613;
+    }
+
+    .file-info-text {
+      font-size: 0.9rem;
+      color: #6c757d;
+      margin: 0;
+      font-weight: 500;
+    }
+
+    .actions-footer {
+      padding: 1.5rem 2rem 2rem;
+      border-top: 1px solid #e9ecef;
+      background: #f8f9fa;
+      text-align: center;
+    }
+
+    .new-report-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: #6c757d;
+      text-decoration: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+      border: 1px solid #e9ecef;
+      /* Mobile touch improvements */
+      min-height: 44px;
+      touch-action: manipulation;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    .new-report-btn:hover {
+      background: #e9ecef;
+      color: #495057;
+      text-decoration: none;
+      border-color: #dee2e6;
+    }
+
+    .back-icon {
+      width: 18px;
+      height: 18px;
+      stroke-width: 2;
+    }
+
+    /* Company branding subtle touch */
+    .brand-mark {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      font-size: 0.75rem;
+      color: #e30613;
+      font-weight: 600;
+      opacity: 0.8;
+      letter-spacing: 0.05em;
+    }
+
+    /* Mobile-specific optimizations */
+    @media (max-width: 640px) {
+      .main-container {
+        padding: 0.5rem;
+        justify-content: flex-start;
+        padding-top: 2rem;
+      }
+
+      .success-header {
+        padding: 1.5rem 1rem 1rem;
+      }
+
+      .success-title {
+        font-size: 1.25rem;
+      }
+
+      .success-subtitle {
+        font-size: 0.9rem;
+      }
+
+      .download-section {
+        padding: 1.5rem 1rem;
+      }
+
+      .download-btn {
+        width: 100%;
+        max-width: none;
+        padding: 1rem 1.5rem;
+        font-size: 1rem;
+        /* Ensure button is tappable on all devices */
+        min-height: 48px;
+      }
+
+      .actions-footer {
+        padding: 1rem;
+      }
+
+      .file-info {
+        margin-top: 1rem;
+        padding: 0.75rem;
+        font-size: 0.85rem;
+      }
+    }
+
+    /* iOS Safari specific fixes */
+    @supports (-webkit-touch-callout: none) {
+      body {
+        /* Fix for iOS viewport height issues */
+        min-height: -webkit-fill-available;
+      }
+      
+      .download-btn {
+        /* Prevent button styling issues in iOS */
+        -webkit-appearance: none;
+        border-radius: 12px;
+      }
+    }
+
+    /* Android specific fixes */
+    @media (max-width: 640px) and (orientation: portrait) {
+      .main-container {
+        /* Account for Android navigation bars */
+        padding-bottom: 2rem;
+      }
+    }
+
+    /* High DPI displays */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+      .result-card {
+        /* Crisper shadows on retina displays */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      }
+    }
+
+    /* Remove potentially problematic animations on mobile */
+    @media (prefers-reduced-motion: reduce), (max-width: 640px) {
+      .success-icon,
+      .result-card {
+        animation: none;
+      }
+      
+      .download-btn:hover {
+        transform: none;
+      }
+      
+      .result-card::before {
+        display: none;
+      }
+    }
+
+    /* Focus states - simplified for mobile */
+    .download-btn:focus,
+    .new-report-btn:focus {
+      outline: 2px solid #e30613;
+      outline-offset: 2px;
+    }
+
+    /* Ensure proper touch targets */
+    .download-btn,
+    .new-report-btn {
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    /* Handle landscape orientation on phones */
+    @media (max-width: 896px) and (orientation: landscape) {
+      .main-container {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+      }
+      
+      .success-header {
+        padding: 1rem;
+      }
+      
+      .success-icon {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 0.5rem;
+      }
+      
+      .success-icon svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <div class="container">
+      <div class="result-card">
+        <div class="brand-mark">NAVITRANS</div>
+        
+        <div class="success-header">
+          <div class="success-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M20 6L9 17l-5-5"/>
+            </svg>
+          </div>
+          <h1 class="success-title">Reporte Generado</h1>
+          <p class="success-subtitle">Tu documento está listo para descargar</p>
+        </div>
+
+        <div class="download-section">
+          <a href="{{ url_for('generated_files', filename=docx_file) }}" 
+             class="download-btn"
+             aria-label="Descargar reporte técnico en formato DOCX">
+            <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7,10 12,15 17,10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Descargar Reporte
+          </a>
+
+          <div class="file-info">
+            <p class="file-info-text">
+              Formato DOCX con datos, imágenes y formato corporativo
+            </p>
+          </div>
+        </div>
+
+        <div class="actions-footer">
+          <a href="{{ url_for('index') }}" class="new-report-btn">
+            <svg class="back-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M19 12H5"/>
+              <path d="M12 19l-7-7 7-7"/>
+            </svg>
+            Generar Nuevo Reporte
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Auto-hide flash messages with elegant animation -->
+  <script>
+    // Auto-hide any flash messages after 5 seconds
+    setTimeout(() => {
+      const flashMessages = document.querySelectorAll('.alert');
+      flashMessages.forEach(msg => {
+        msg.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        msg.style.opacity = '0';
+        msg.style.transform = 'translateY(-20px)';
+        setTimeout(() => msg.remove(), 500);
+      });
+    }, 5000);
+
+    // Add subtle interaction feedback
+    document.addEventListener('DOMContentLoaded', () => {
+      const downloadBtn = document.querySelector('.download-btn');
+      const newReportBtn = document.querySelector('.new-report-btn');
+
+      // Add haptic feedback simulation for mobile
+      if ('vibrate' in navigator) {
+        [downloadBtn, newReportBtn].forEach(btn => {
+          btn.addEventListener('click', () => {
+            navigator.vibrate(50);
+          });
+        });
+      }
+
+      // Track download for analytics (if needed)
+      downloadBtn.addEventListener('click', () => {
+        // Analytics tracking could go here
+        console.log('Reporte DOCX descargado');
+      });
+    });
+  </script>
+</body>
+</html>

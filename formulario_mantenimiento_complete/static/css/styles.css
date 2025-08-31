@@ -1,0 +1,654 @@
+/* Reset y base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f5f5f5;
+}
+
+/* Container responsive */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, #e30613, #c40510);
+  color: white;
+  padding: 1rem 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Header content with logo */
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  position: relative;
+}
+
+/* Logo section */
+.logo-section {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.header-logo {
+  height: 120px;
+  width: auto;
+  max-width: 280px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+/* Text logo fallback */
+.text-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  line-height: 1.2;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.logo-main {
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  letter-spacing: 0.05em;
+}
+
+.logo-sub {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+/* App title */
+.app-title {
+  font-size: 2.2rem;
+  font-weight: 600;
+  text-align: center;
+  margin: 0;
+  flex: 1;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Main content */
+main {
+  margin: 2rem auto;
+  max-width: 800px;
+}
+
+/* Card styling */
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+/* Form headings */
+h2 {
+  color: #e30613;
+  font-size: 1.3rem;
+  margin: 1.5rem 0 1rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e30613;
+}
+
+h2:first-child {
+  margin-top: 0;
+}
+
+/* Grid layouts */
+.grid {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* Form elements */
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+input[type="text"],
+input[type="date"],
+textarea,
+input[type="file"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: #e30613;
+  box-shadow: 0 0 0 3px rgba(227, 6, 19, 0.1);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+input[type="file"] {
+  padding: 0.5rem;
+  background-color: #f8f9fa;
+}
+
+/* Buttons */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, #e30613, #c40510);
+  color: white;
+}
+
+.btn.primary:hover {
+  background: linear-gradient(135deg, #c40510, #a00408);
+}
+
+.btn:not(.primary) {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn:not(.primary):hover {
+  background-color: #5a6268;
+}
+
+.link {
+  background: none;
+  border: none;
+  color: #e30613;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0.25rem;
+}
+
+.link:hover {
+  color: #c40510;
+}
+
+/* Dynamic items */
+.item-row {
+  display: grid;
+  gap: 1rem;
+  align-items: start;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  border-left: 4px solid #e30613;
+}
+
+/* Estilos específicos para correcciones */
+.correction-row {
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-left: 4px solid #e30613;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.correction-row > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.correction-row label {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+/* Layout específico para correcciones en pantallas grandes */
+@media (min-width: 768px) {
+  .correction-row {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1.5rem;
+  }
+  
+  /* Título ocupa toda la primera fila */
+  .correction-row > div:first-child {
+    grid-column: 1 / -1;
+  }
+  
+  /* Imagen en segunda fila, primera columna */
+  .correction-row > div:nth-child(2) {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  
+  /* Descripción en segunda fila, segunda y tercera columna */
+  .correction-row > div:nth-child(3) {
+    grid-column: 2 / -1;
+    grid-row: 2;
+  }
+  
+  /* Botón quitar en la esquina */
+  .correction-row > div:last-child {
+    grid-column: -1;
+    grid-row: 1;
+    justify-self: end;
+    align-self: start;
+  }
+}
+
+/* Mejoras visuales para el campo de título */
+.correction-row input[name="corrections_title[]"] {
+  background: linear-gradient(135deg, #ffffff, #f8f9fa);
+  border: 2px solid #e30613;
+  font-weight: 600;
+  color: #e30613;
+}
+
+.correction-row input[name="corrections_title[]"]:focus {
+  border-color: #c40510;
+  box-shadow: 0 0 0 3px rgba(227, 6, 19, 0.15);
+}
+
+/* Checkbox styling */
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: normal;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+  transform: scale(1.2);
+}
+
+/* Actions section */
+.actions {
+  margin-top: 2rem;
+  text-align: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid #ddd;
+}
+
+/* Flash messages */
+.flash-area {
+  margin-bottom: 1.5rem;
+}
+
+.flash {
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  position: relative;
+}
+
+.flash-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.flash-error,
+.flash-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.flash-info {
+  background-color: #cce7ff;
+  color: #004085;
+  border: 1px solid #b3d7ff;
+}
+
+.flash-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.7;
+}
+
+.flash-close:hover {
+  opacity: 1;
+}
+
+/* Footer */
+.footer {
+  background-color: #343a40;
+  color: #fff;
+  text-align: center;
+  padding: 1.5rem 0;
+  margin-top: 3rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 10px;
+  }
+  
+  .header {
+    padding: 1.5rem 0;
+  }
+  
+  .header-content {
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+  }
+  
+  .logo-section {
+    order: -1;
+  }
+  
+  .header-logo {
+    height: 80px;
+    max-width: 200px;
+  }
+  
+  .text-logo .logo-main {
+    font-size: 1.2rem;
+  }
+  
+  .text-logo .logo-sub {
+    font-size: 0.9rem;
+  }
+  
+  .app-title {
+    font-size: 1.6rem;
+  }
+  
+  main {
+    margin: 1rem auto;
+  }
+  
+  .card {
+    padding: 1.5rem;
+    border-radius: 8px;
+  }
+  
+  .app-title {
+    font-size: 1.4rem;
+  }
+  
+  h2 {
+    font-size: 1.2rem;
+  }
+  
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+  
+  .item-row {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 0.75rem;
+  }
+  
+  .correction-row {
+    grid-template-columns: 1fr !important;
+    padding: 1rem;
+  }
+  
+  .correction-row > div:first-child {
+    grid-column: 1 !important;
+  }
+  
+  .correction-row > div:nth-child(2) {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+  }
+  
+  .correction-row > div:nth-child(3) {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+  }
+  
+  .correction-row > div:last-child {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+    justify-self: start !important;
+  }
+  
+  .btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+  }
+  
+  input[type="text"],
+  input[type="date"],
+  textarea,
+  input[type="file"] {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 1rem;
+    margin: 0 5px;
+  }
+  
+  .app-title {
+    font-size: 1.4rem;
+  }
+  
+  h2 {
+    font-size: 1.1rem;
+  }
+  
+  .container {
+    padding: 0 5px;
+  }
+  
+  .header {
+    padding: 1rem 0;
+  }
+  
+  .header-logo {
+    height: 70px;
+    max-width: 180px;
+  }
+  
+  .text-logo .logo-main {
+    font-size: 1.5rem;
+  }
+  
+  .text-logo .logo-sub {
+    font-size: 1rem;
+  }
+}
+
+/* Mejoras para tablet - diseño horizontal del header */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .header-content {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo-section {
+    flex-shrink: 0;
+  }
+  
+  .header-logo {
+    height: 100px;
+    max-width: 240px;
+  }
+  
+  .app-title {
+    text-align: center;
+    flex: 1;
+  }
+  
+  .text-logo .logo-main {
+    font-size: 1.8rem;
+  }
+  
+  .text-logo .logo-sub {
+    font-size: 1.3rem;
+  }
+}
+
+/* Desktop - logo en esquina izquierda */
+@media (min-width: 1025px) {
+  .header-content {
+    position: relative;
+  }
+  
+  .logo-section {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .app-title {
+    text-align: center;
+    width: 100%;
+  }
+  
+  .header-logo {
+    height: 140px;
+    max-width: 320px;
+  }
+  
+  .text-logo {
+    padding: 1rem 2rem;
+  }
+  
+  .text-logo .logo-main {
+    font-size: 2.2rem;
+  }
+  
+  .text-logo .logo-sub {
+    font-size: 1.4rem;
+  }
+}
+
+/* Mejoras para touch devices */
+@media (hover: none) {
+  .btn:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  
+  .btn:active {
+    transform: translateY(1px);
+  }
+}
+
+/* Loading state */
+.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.loading .btn.primary::after {
+  content: "...";
+  animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+  0%, 20% { content: ""; }
+  40% { content: "."; }
+  60% { content: ".."; }
+  80%, 100% { content: "..."; }
+}
+
+/* Estilos adicionales para errores y elementos interactivos */
+.error {
+  border-color: #dc3545 !important;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1) !important;
+}
+
+.keyboard-open {
+  padding-bottom: 0;
+}
+
+.image-preview {
+  text-align: center;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.keyboard-open .footer {
+  display: none;
+}
+
+/* Loading overlay */
+#loading-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: rgba(0,0,0,0.7) !important;
+  z-index: 9999 !important;
+  display: none !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
