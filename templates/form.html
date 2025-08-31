@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block title %}Reporte Técnico{% endblock %}
+{% block content %}
+<form id="mantenimiento-form" action="{{ url_for('submit') }}" method="POST" enctype="multipart/form-data" class="card">
+  <h2>1) Encabezado</h2>
+  <div class="grid">
+    <label for="fecha">Fecha *</label>
+    <input type="date" id="fecha" name="fecha" value="{{ today }}" required>
+  </div>
+
+  <h2>2) Datos generales</h2>
+  <div class="grid grid-2">
+    <div>
+      <label for="cliente">Cliente</label>
+      <input type="text" id="cliente" name="cliente" placeholder="Nombre del cliente" autocomplete="organization">
+    </div>
+    <div>
+      <label for="equipo">Equipo</label>
+      <input type="text" id="equipo" name="equipo" placeholder="Equipo" autocomplete="off">
+    </div>
+    <div>
+      <label for="kilometraje">Kilometraje</label>
+      <input type="text" id="kilometraje" name="kilometraje" placeholder="Ej. 12,345 km" autocomplete="off" inputmode="numeric">
+    </div>
+    <div>
+      <label for="horas">Horas</label>
+      <input type="text" id="horas" name="horas" placeholder="Ej. 250 h" autocomplete="off" inputmode="numeric">
+    </div>
+  </div>
+
+  <h2>3) Condiciones</h2>
+  <p>Añade ítems y marca si aplica. Se exportan como checklist en el reporte.</p>
+  <div id="conditions-list"></div>
+  <button type="button" class="btn" onclick="addCondition()">+ Agregar condición</button>
+  <input type="hidden" name="conditions_json" id="conditions_json">
+
+  <h2>4) Correcciones</h2>
+  <p>Añade todas las correcciones necesarias. Cada ítem permite subir una imagen, escribir una descripción y personalizar el título.</p>
+  <div id="corrections-list"></div>
+  <button type="button" class="btn" onclick="addCorrection()">+ Agregar corrección</button>
+
+  <div class="actions">
+    <button type="submit" class="btn primary">Generar Reporte DOCX</button>
+  </div>
+</form>
+
+<template id="condition-template">
+  <div class="item-row">
+    <div>
+      <input type="text" class="cond-text" placeholder="Descripción de la condición" autocomplete="off">
+    </div>
+    <div>
+      <label class="checkbox">
+        <input type="checkbox" class="cond-checked"> Aplicable
+      </label>
+    </div>
+    <div>
+      <button type="button" class="link" onclick="removeRow(this)">Quitar</button>
+    </div>
+  </div>
+</template>
+
+<template id="correction-template">
+  <div class="item-row correction-row">
+    <div>
+      <label>Título de la corrección</label>
+      <input type="text" name="corrections_title[]" placeholder="Ej. Cambio de filtros, Reparación motor..." autocomplete="off">
+    </div>
+    <div>
+      <label>Imagen (opcional)</label>
+      <input type="file" name="corrections_img[]" accept="image/*" capture="environment">
+    </div>
+    <div>
+      <label>Descripción</label>
+      <textarea name="corrections_desc[]" rows="3" placeholder="Describe la corrección..." autocomplete="off"></textarea>
+    </div>
+    <div>
+      <button type="button" class="link" onclick="removeRow(this)">Quitar</button>
+    </div>
+  </div>
+</template>
+
+<!-- Loading overlay CORREGIDO -->
+<div id="loading-overlay">
+  <div style="background: white; padding: 2rem; border-radius: 8px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+    <h3 style="margin: 0 0 1rem 0; color: #e30613;">Generando reporte...</h3>
+    <p style="margin: 0; color: #666;">Por favor espera mientras procesamos tu información.</p>
+    <div style="margin-top: 1rem;">
+      <div class="spinner" style="border: 3px solid #f3f3f3; border-top: 3px solid #e30613; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+    </div>
+  </div>
+</div>
+
+<style>
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Estilos específicos para correcciones */
+.correction-row {
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.correction-row > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.correction-row label {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #555;
+}
+
+@media (min-width: 768px) {
+  .correction-row {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+  }
+  
+  .correction-row > div:first-child {
+    grid-column: 1 / -1;
+  }
+}
+</style>
+{% endblock %}

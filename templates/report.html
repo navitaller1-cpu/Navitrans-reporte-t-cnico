@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { 
+      font-family: Cambria, "Times New Roman", serif; 
+      font-size: 10pt; 
+      margin: 1cm; 
+      line-height: 1.4;
+    }
+    
+    .header {
+      border-bottom: 2px solid black;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .header-title {
+      background-color: #e30613;
+      color: white;
+      padding: 10px;
+      font-weight: bold;
+      font-size: 12pt;
+      font-family: Cambria, "Times New Roman", serif;
+    }
+    
+    .header-info {
+      text-align: right;
+      font-size: 9pt;
+      font-family: Cambria, "Times New Roman", serif;
+      margin-top: 10px;
+    }
+
+    .section-title {
+      background-color: #e30613;
+      color: white;
+      font-weight: bold;
+      padding: 8px;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      font-size: 12pt;
+      font-family: Cambria, "Times New Roman", serif;
+    }
+
+    .datos {
+      font-family: Cambria, "Times New Roman", serif;
+      font-size: 10pt;
+    }
+
+    .datos .campo {
+      margin-bottom: 15px;
+    }
+
+    .datos .etiqueta {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .datos .valor {
+      text-decoration: underline;
+      display: block;
+      min-height: 20px;
+    }
+
+    .condiciones-list {
+      padding-left: 20px;
+    }
+
+    .condiciones-list li {
+      margin: 5px 0;
+      list-style: none;
+      font-family: Cambria, "Times New Roman", serif;
+      font-size: 10pt;
+    }
+
+    .correccion {
+      margin: 15px 0;
+      padding: 10px;
+      border-left: 3px solid #e30613;
+      background-color: #f9f9f9;
+      font-family: Cambria, "Times New Roman", serif;
+      font-size: 10pt;
+    }
+
+    .correccion-title {
+      font-weight: bold;
+      color: #e30613;
+      margin-bottom: 5px;
+      font-family: Cambria, "Times New Roman", serif;
+      font-size: 10pt;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 9pt;
+      color: #666;
+      border-top: 1px solid #ccc;
+      padding-top: 10px;
+      font-family: Cambria, "Times New Roman", serif;
+    }
+  </style>
+</head>
+<body>
+  <!-- Encabezado simplificado -->
+  <div class="header">
+    <div class="header-title">REPORTE TÉCNICO SERVICIO TALLER</div>
+    <div class="header-info">
+      <strong>VERSIÓN: 01</strong><br>
+      <strong>FECHA: {{ fecha or "-" }}</strong>
+    </div>
+  </div>
+
+  <!-- Datos Generales -->
+  <div class="section-title">1. DATOS GENERALES</div>
+  <div class="datos">
+    <div class="campo">
+      <span class="etiqueta">CLIENTE:</span>
+      <span class="valor">{{ cliente or "XXXXXXXXXX" }}</span>
+    </div>
+    
+    <div class="campo">
+      <span class="etiqueta">EQUIPO:</span>
+      <span class="valor">{{ equipo or "XXXXXXXXXX" }}</span>
+    </div>
+    
+    <div class="campo">
+      <span class="etiqueta">KILOMETRAJE:</span>
+      <span class="valor">{{ kilometraje or "XXXXXXXXXX" }}</span>
+    </div>
+    
+    <div class="campo">
+      <span class="etiqueta">HORAS:</span>
+      <span class="valor">{{ horas or "XXXXXXXXXX" }}</span>
+    </div>
+  </div>
+
+  <!-- Condiciones -->
+  <div class="section-title">2. CONDICIONES</div>
+  {% if condiciones %}
+    <ul class="condiciones-list">
+      {% for c in condiciones %}
+        <li>{% if c.checked %}[X]{% else %}[ ]{% endif %} {{ c.text }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p style="padding-left: 10px;">—</p>
+  {% endif %}
+
+  <!-- Correcciones -->
+  <div class="section-title">3. CORRECCIONES</div>
+  {% if correcciones %}
+    {% for c in correcciones %}
+      <div class="correccion">
+        <div class="correccion-title">Corrección {{ loop.index }}</div>
+        {% if c.descripcion %}
+          <p>{{ c.descripcion }}</p>
+        {% endif %}
+        {% if c.imagen %}
+          <p><em>Imagen adjunta: {{ c.imagen.split('/')[-1] }}</em></p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  {% else %}
+    <p style="padding-left: 10px;">—</p>
+  {% endif %}
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>Reporte generado el: {{ generated_at }}</p>
+  </div>
+</body>
+</html>

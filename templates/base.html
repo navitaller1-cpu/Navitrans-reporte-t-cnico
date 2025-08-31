@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes, shrink-to-fit=no">
+  <meta name="theme-color" content="#e30613">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Reporte Técnico">
+  
+  <title>{{ title if title else "Reporte Técnico" }}</title>
+  
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+  
+  <!-- Icons for different devices -->
+  <link rel="icon" type="image/png" sizes="192x192" href="{{ url_for('static', filename='img/icon-192.png') }}">
+  <link rel="icon" type="image/png" sizes="512x512" href="{{ url_for('static', filename='img/icon-512.png') }}">
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/icon-192.png') }}">
+  
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  
+  <!-- Prevent zoom on input focus (iOS) -->
+  <style>
+    @media screen and (-webkit-min-device-pixel-ratio:0) {
+      select, textarea, input[type="text"], input[type="password"], 
+      input[type="datetime"], input[type="datetime-local"], 
+      input[type="date"], input[type="month"], input[type="time"], 
+      input[type="week"], input[type="number"], input[type="email"], 
+      input[type="url"] { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <!-- Logo section -->
+        <div class="logo-section">
+          <img src="{{ url_for('static', filename='img/logo.png') }}" 
+               alt="NAVITRANS Logo" 
+               class="header-logo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <!-- Fallback text logo if image fails -->
+          <div class="text-logo" style="display: none;">
+            <span class="logo-main">NAVITRANS</span>
+            <span class="logo-sub">Mantenimiento</span>
+          </div>
+        </div>
+        
+        <!-- Title section -->
+        <h1 class="app-title">Reporte Técnico</h1>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-area">
+          {% for category, message in messages %}
+          <div class="flash flash-{{ category }}" role="alert">
+            {{ message }}
+            <button type="button" class="flash-close" onclick="this.parentElement.style.display='none'" aria-label="Cerrar">&times;</button>
+          </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <small>Sistema de Reportes Técnicos &copy; 2025</small>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="{{ url_for('static', filename='js/form.js') }}"></script>
+  
+  <!-- Add to home screen prompt -->
+  <script>
+    // PWA install prompt
+    let deferredPrompt;
+    
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      
+      // Show install button if desired
+      // showInstallButton();
+    });
+    
+    // Handle iOS install
+    if (window.navigator.standalone !== true && /iPad|iPhone|iPod/.test(navigator.userAgent)) {
+      // Could show iOS install instructions
+    }
+  </script>
+</body>
+</html>
